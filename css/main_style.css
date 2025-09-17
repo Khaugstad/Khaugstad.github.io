@@ -39,6 +39,9 @@ background-color: #808e9f;
   font-size: 22px;
 }
 
-#research-interest {
-
+#research-interests {
+  text-align: left;
+  font-size: 20px;
+  position: relative;
+  left: 50px;
 }
