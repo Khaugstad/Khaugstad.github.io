@@ -18,17 +18,17 @@ h1 {
   margin: 0;
 }
 #body-container { 
-  background-color: #4c79b4;
+  background-color: #cfdcec;
   max-width: 1000px;
   margin:auto;
   min-height: 100vh;
-  border: 2px solid #4c79b4
+  border: 5px solid #7c8ea4;
   border-radius: 25px;
-  overflow: hidden;
+  overflow:hidden;
 }
 
 #header {
-
+background-color: #1c9099;
 }
 #profile-picture {
 
