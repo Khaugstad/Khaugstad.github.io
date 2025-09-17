@@ -1,0 +1,7 @@
+For the first sector the margin 0 changed the margin for the body.
+For the second sector adding the padding of 5 px made the spacing of the header smaller from the top to the picture. 
+For the third sector I added changes to the background, by changing and adding a colored background with a width of 1000px and a height of 100vh minimum. As well as adding a colored border of 5px and rounding the edges of the border with the border radius of 25px.
+For the fourth sector i added a background color to the header giving the header a background with a grayish blue color matching the border. 
+For the fifth sector I added float left for the profile picture, which moved the picture to the left of the frame. also changing the welcome text by padding from the top 25px which moved the text down 25 px from the top also changing the font to 22px. 
+For the sixth sector I added a text align to the left creating a horizontal align with the block element, also changing the font size of the text for research interests to 20px, then adding a position relative left 50px to make the text relative to the left of the other elements. 
+ 
