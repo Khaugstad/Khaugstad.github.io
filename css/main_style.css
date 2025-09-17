@@ -9,8 +9,24 @@ body {
   background-color: #dbc9e2;
   color: #1c9099;
   text-align: center;
+  margin: 0;
 }
 
 h1 {
   color:#4c79b4;
+}
+#body-container { 
+
+}
+#header {
+
+}
+#profile-picture {
+
+}
+#welcome-text {
+
+}
+#research-interest {
+
 }
