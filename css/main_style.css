@@ -13,7 +13,7 @@ body {
 }
 
 h1 {
-  color:#4c79b4;
+  color:#20477a;
   padding:5px;
   margin: 0;
 }
@@ -22,13 +22,13 @@ h1 {
   max-width: 1000px;
   margin:auto;
   min-height: 100vh;
-  border: 5px solid #7c8ea4;
+  border: 5px solid #808e9f;
   border-radius: 25px;
   overflow:hidden;
 }
 
 #header {
-background-color: #1c9099;
+background-color: #808e9f;
 }
 #profile-picture {
 
