@@ -1,9 +1,16 @@
+/*
+Colorblind safe color palette from colorbrewer2.org.
+#dbc9e2 - cyan
+#1c9099 - Light Green 
+#4c79b4 - Light Blue 
+*/
+
 body {
-  background-color: #ece2f0;
+  background-color: #dbc9e2;
   color: #1c9099;
   text-align: center;
 }
 
 h1 {
-  color:#a6bddb;
+  color:#4c79b4;
 }
