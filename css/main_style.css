@@ -30,12 +30,15 @@ h1 {
 #header {
 background-color: #808e9f;
 }
-#profile-picture {
 
+#profile-picture {
+  float: left;
 }
 #welcome-text {
-
+  padding-top: 25px;
+  font-size: 25px;
 }
+
 #research-interest {
 
 }
