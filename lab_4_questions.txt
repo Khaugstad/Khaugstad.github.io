@@ -1,3 +1,5 @@
 Lab 4 question answers 
 
 1. The variable message was printed twice when it was not defined using Let. So when the variable message was defined with let it made it apply to what is in the function. 
+2. By removing the document . write command it removes the welcome header. This is because by removing the code you are taking away the command for the welcome header. 
+3. By having the script recognize the diffrent tags in diffrent places by identifying the elements from the external.JS in the script.  
