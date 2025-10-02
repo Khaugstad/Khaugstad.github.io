@@ -1,8 +1,8 @@
 /*
 Colorblind safe color palette from colorbrewer2.org.
 #dbc9e2 - cyan
-#1c9099 - Light Green 
-#4c79b4 - Light Blue 
+#1c9099 - Light Green
+#4c79b4 - Light Blue
 */
 
 body {
@@ -17,7 +17,7 @@ h1 {
   padding:5px;
   margin: 0;
 }
-#body-container { 
+#body-container {
   background-color: #cfdcec;
   max-width: 1000px;
   margin:auto;
