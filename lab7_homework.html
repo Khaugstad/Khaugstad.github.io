@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Lab7 - Open Demo</title>
+    <style>
+        body {
+            font-family: system-ui, Arial, sans-serif;
+            padding: 2rem;
+        }
+
+        label,
+        select {
+            font-size: 1rem;
+        }
+
+        select {
+            margin-left: .5rem;
+            padding: .25rem .5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <label for="demo-select">Open demo:</label>
+    <select id="demo-select" aria-label="Open demo in new tab">
+        <option value="">-- Select a demo --</option>
+
+        <option value="https://Khaugstad.github.io/simple_mapping.html">simple_mapping</option>
+        <option value="https://Khaugstad.github.io/tile_layer.html">Tile layer</option>
+        <option value="https://Khaugstad.github.io/dynamic_layers.html">dynamic_layers</option>
+        <option value="https://Khaugstad.github.io/on_event.html">on_event</option>
+        <option value="https://Khaugstad.github.io/basemap_gallery.html">basemap_gallery</option>
+        <option value="https://Khaugstad.github.io/query_task.html">query_task</option>
+
+    </select>
+
+    <script>
+        document.getElementById('demo-select').addEventListener('change', function () {
+            const url = this.value;
+            if (!url) return;
+            // open in a new tab and avoid keeping a reference to the opener
+            const win = window.open('', '_blank');
+            if (win) {
+                try { win.opener = null; } catch (e) { }
+                win.location = url;
+            } else {
+                // fallback if popup blocked: navigate in current tab (rare)
+                window.location.href = url;
+            }
+            // reset selection
+            this.selectedIndex = 0;
+        });
+    </script>
+</body>
+
+</html>
