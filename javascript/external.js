@@ -17,9 +17,9 @@ var webmaps = [
     ["National Geographic Mapmaker", "https://mpmkr.maps.arcgis.com/apps/instant/atlas/index.html?appid=0cd1cdee853c413a84bfe4b9a6931f0d",
         "ArcGIS Online provides interactive mapping tools such as this instant atlas. This powerful web map opens up the possiblities\
          to interact will all sorts of different data sets and analysis across the world."],
-    ["National Geographic Mapmaker", "https://mpmkr.maps.arcgis.com/apps/instant/atlas/index.html?appid=0cd1cdee853c413a84bfe4b9a6931f0d",
-        "ArcGIS Online provides interactive mapping tools such as this instant atlas. This powerful web map opens up the possiblities\
-        to interact will all sorts of different data sets and analysis across the world."],
+    ["Habitat Assesment Team Map", "https://gis-tpwd.opendata.arcgis.com/apps/0f7eb31f143449be888d62f5ac659eb8/explore",
+        "This web mapping application is an interactive map viewer to show habitat maps and survey boundaries produced by the Texas Parks and Wildlife Department's Coastal Fisheries Division and the Habitat Assesment Team.\
+         It features the geographic boundaries of all completed habitat mapping surveys, along with the corresponding habitat types identified during each effort. As new surveys are conducted, their data will be added to the viewer."],
 ];
 function welcome() {
     let a = "Please enter your name.";
@@ -45,11 +45,10 @@ function webmap_table() {
             else
             {
                 document.write("<td>" + webmaps[row][column] + "</td>");
-            }    
+            }
         }
         document.write("</tr>");
     }
     document.write("</table>");
     return "";
 }
-
