@@ -34,94 +34,48 @@
         }
     </style>
     <script>
-        require(["esri/Map", "esri/views/MapView", "esri/layers/TileLayer", "esri/layers/MapImageLayer", "esri/widgets/BasemapGallery", "esri/layers/GraphicsLayer",
+        require(["esri/Map", "esri/views/MapView", "esri/layers/TileLayer", "esri/layers/FeatureLayer", "esri/widgets/BasemapGallery", "esri/layers/GraphicsLayer",
             "esri/tasks/QueryTask", "esri/tasks/support/Query",
             "dojo/_base/array", "dojo/dom", "dojo/on",
             "dojo/domReady!"],
-            function (Map, MapView, TileLayer, MapImageLayer, BasemapGallery, GraphicsLayer, QueryTask, Query,
+            function (Map, MapView, TileLayer, FeatureLayer, BasemapGallery, GraphicsLayer, QueryTask, Query,
                 arrayUtils, dom, on) {
-                var CitiesRenderer = {
-                    type: "simple",
-                    symbol: {
-                        type: "simple-marker",
-                        size: 3,
-                        color: "red",
-                        style: "circle",
-                        outline: {
-                            width: 1,
-                            color: "red"
-                        }
-                    },
-                    label: "Cities"
-                };
 
-                var BedrockRenderer = {
-                    type: "simple",
-                    symbol:
-                    {
-                        type: "esriSFS",
-                        style: "esriSFSSolid",
-                        color: [76, 129, 205, 191],
-                        outline: {
-                            type: "esriSLS",
-                            style: "esriSLSSolid",
-                            color: [0, 0, 0, 255],
-                            width: 0.75
-                        }
-                    },
-                    label: "Bedrock"
-                };
-
-
-
-                var CitiesLayer = new MapImageLayer({
-                    url: "https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer",
-                    sublayers: [{
-                        id: 0,
-                        renderer: CitiesRenderer,
-                        opacity: 0.4
-                    }]
+                var BedrockLayer = new FeatureLayer({
+                    url: "https://services.arcgis.com/V6ZHFr6zdgNZuVG0/ArcGIS/rest/services/Minnesota_Bedrock_Outcrop_gdb/FeatureServer/0"
                 });
-
-                var BedrockLayer = new MapImageLayer({
-                    url: "https://https://services.arcgis.com/V6ZHFr6zdgNZuVG0/ArcGIS/rest/services/Minnesota_Bedrock_Outcrop_gdb/FeatureServer",
-                    sublayers: [{
-                        id: 0,
-                        renderer: BedrockRenderer,
-                        opacity: 0.4
-                    }]
-                });
-
 
                 var TransportationLayer = new TileLayer({
                     url: "https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Transportation/MapServer"
                 });
-
                 var map = new Map({
                     basemap: "oceans",
-                    layers: [TransportationLayer, CitiesLayer, BedrockLayer]
+                    layers: [TransportationLayer, BedrockLayer]
                 });
                 var view = new MapView({
                     container: "viewDiv",
                     map: map,
-                    zoom: 10,
-                    center: [-118.2095, 34.0866]
+                    zoom: 6,
+                    center: [-94.5, 46]
                 });
-                var basemapGallery = new BasemapGallery({
-                    view: view
-                });
-                view.ui.add(basemapGallery, { position: "top-right" });
+
+
                 view.when(function () {
                     view.ui.add("optionsDiv", "bottom-right");
                     on(dom.byId("doBtn"), "click", doQuery);
                 });
-                var attributeName = dom.byId("attSelect");
+
+
+                var rockTypeValue = dom.byId("rockTypeSelect");
+
+                var areaSelect = dom.byId("areaSelect");
                 var expressionSign = dom.byId("signSelect");
-                var value = dom.byId("valSelect");
+                var areaValue = dom.byId("areaValSelect");
+
 
                 function doQuery() {
-                    resultsLayer.removeAll();
-                    params.where = attributeName.value + expressionSign.value + value.value;
+                    //BedrockLayer.removeAll();
+                    params.where = rockTypeValue.value + areaSelect.value + expressionSign.value + areaValue.value;
                     qTask.execute(params).then(getResults).catch(promiseRejected);
                 }
 
@@ -149,21 +103,21 @@
                         expressionSign.value, value.value);
                 }
 
-                var popUrl = "https://services.arcgis.com/V6ZHFr6zdgNZuVG0/ArcGIS/rest/services/CaliforniaCities/FeatureServer/0";
+                var popUrl = "https://services.arcgis.com/V6ZHFr6zdgNZuVG0/ArcGIS/rest/services/Minnesota_Bedrock_Outcrop_gdb/FeatureServer/0";
                 var popupTemplate = {
                     title: "{City}",
                     fieldInfos: [
                         {
-                            fieldName: "Population",
-                            label: "Population",
+                            fieldName: "rk_name1",
+                            label: "Rock Type",
                             format: {
                                 places: 0,
                                 digitSeperator: true
                             }
                         },
                         {
-                            fieldName: "Household",
-                            label: "Household",
+                            fieldName: "SHAPE__Area",
+                            label: "Area",
                             format: {
                                 places: 0,
                                 digitSeperator: true
@@ -176,39 +130,98 @@
                 var resultsLayer = new GraphicsLayer();
                 var qTask = new QueryTask({ url: popUrl });
                 var params = new Query({ returnGeometry: true, outFields: ["*"] });
+
             });
+
     </script>
 </head>
 
 <body>
     <div id="viewDiv"></div>
     <div class="esri-widget" id="optionsDiv">
-        <h2>Cities in California</h2>
-        <select class="esri-widget" id="attSelect">
-            <option value="Population">Population</option>
-            <option value="Household" selected>Households</option>
+        <h2>Bedrock Outcrops in Minnesota</h2>
+        <p>Rock Type:
+        <select class="esri-widget" id="rockTypeSelect">
+            <option value="Granite">Granite</option>
+            <option value="Quartzite">Quartzite</option>
+            <option value="Schist">Schist</option>
+            <option value="Basalt">Basalt</option>
+            <option value="Unknown">Unkown</option>
+        </select>
+      </p>
+        <br>
+        <select class="esri-widget" id="areaSelect">
+          <option value="Area">Area (m)</option>
+          <option value="Area">Area (ft)</option>
         </select>
         <select class="esri-widget" id="signSelect">
             <option value="&gt;">is greater than</option>
             <option value="&lt;">is less than</option>
         </select>
-        <select class="esri-widget" id="valSelect">
+        <select class="esri-widget" id="areaValSelect">
+            <option value="1000">1000</option>
+            <option value="2000">2000</option>
+            <option value="5000">5000</option>
             <option value="10000">10,000</option>
+            <option value="20000">20,000</option>
+            <option value="50000">50,000</option>
+            <option value="10000">10,000</option>
+            <option value="20000">20,000</option>
             <option value="50000">50,000</option>
             <option value="100000">100,000</option>
-            <option value="150000">150,000</option>
             <option value="200000">200,000</option>
             <option value="500000">500,000</option>
             <option value="1000000">1,000,000</option>
-            <option value="2000000">2,000,000</option>
-            <option value="5000000">5,000,000</option>
         </select>
         <br>
         <br>
         <button class="esri-widget" id="doBtn">Do Query</button>
         <br>
         <p><span id="printResults"></span></p>
+        <label for="demo-select">Open demo:</label>
+        <select id="demo-select" aria-label="Open demo in new tab">
+            <option value="">-- Select a demo --</option>
+
+            <option value="https://Khaugstad.github.io/simple_mapping.html">simple_mapping</option>
+            <option value="https://Khaugstad.github.io/tile_layer.html">Tile layer</option>
+            <option value="https://Khaugstad.github.io/dynamic_layers.html">dynamic_layers</option>
+            <option value="https://Khaugstad.github.io/on_event.html">on_event</option>
+            <option value="https://Khaugstad.github.io/basemap_gallery.html">basemap_gallery</option>
+            <option value="https://Khaugstad.github.io/query_task.html">query_task</option>
+
+        </select>
+
+        <script>
+            document.getElementById('demo-select').addEventListener('change', function () {
+                const url = this.value;
+                if (!url) return;
+                // open in a new tab and avoid keeping a reference to the opener
+                const win = window.open('', '_blank');
+                if (win) {
+                    try { win.opener = null; } catch (e) { }
+                    win.location = url;
+                } else {
+                    // fallback if popup blocked: navigate in current tab (rare)
+                    window.location.href = url;
+                }
+                // reset selection
+                this.selectedIndex = 0;
+            });
+        </script>
+
     </div>
+    <div id="copyright">
+        <script>
+            // tell code to add a date to the copyright.
+            var today = new Date();
+            // tell code to add the full year (this year) to the copyright.
+            var year = today.getFullYear();
+            // tell the code to copyright with symbol and year and is formatted/ written.
+            document.writeln("Copyright &copy; " + year);
+        </script>
+    </div>
+
+
 </body>
 
 </html>
