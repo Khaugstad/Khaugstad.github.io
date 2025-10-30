@@ -75,11 +75,12 @@
 
                 function doQuery() {
                     //BedrockLayer.removeAll();
-                    params.where = rockTypeValue.value + areaSelect.value + expressionSign.value + areaValue.value;
+                    params.where = /*rockTypeValue.value + areaSelect.value*/ "SHAPE__Area" + expressionSign.value + areaValue.value + "AND rk_name1 = " + rockTypeValue.value;
                     qTask.execute(params).then(getResults).catch(promiseRejected);
                 }
 
                 function getResults(response) {
+                  console.log(response);
                     var popResults = arrayUtils.map(
                         response.features,
                         function (feature) {
@@ -99,33 +100,25 @@
                 };
 
                 function promiseRejected(error) {
-                    console.error("Promise rejected: ", error.message, " Parameter values: ", attributeName.value,
-                        expressionSign.value, value.value);
+                    console.error("Promise rejected: ", error.message, " Parameter values: ", expressionSign.value,
+                        areaValue.value, rockTypeValue.value);
                 }
 
                 var popUrl = "https://services.arcgis.com/V6ZHFr6zdgNZuVG0/ArcGIS/rest/services/Minnesota_Bedrock_Outcrop_gdb/FeatureServer/0";
                 var popupTemplate = {
-                    title: "{City}",
+                    title: "{reference}",
                     fieldInfos: [
-                        {
-                            fieldName: "rk_name1",
-                            label: "Rock Type",
-                            format: {
-                                places: 0,
-                                digitSeperator: true
-                            }
-                        },
-                        {
+                        /*{
                             fieldName: "SHAPE__Area",
-                            label: "Area",
+                            label: "shapeArea",
                             format: {
                                 places: 0,
                                 digitSeperator: true
                             }
-                        }
+                        }*/
                     ],
-                    content: "<b>Population:" + "</b> {Population} " + "<br><b>Households:</b> {Household}" + "<br><b>Latitude:</b> \
-                    { Latitude } " + " < br > <b>Longitude:</b> { Longitude } "
+                    content: "<b>Rock Type:" + "</b> {rk_name1} " + "<br><b>Area:</b> {SHAPE__Area}" + "<br><b>Latitude:</b> \
+                    {latitude} " + " < br > <b>Longitude:</b> {longitude} "
                 };
                 var resultsLayer = new GraphicsLayer();
                 var qTask = new QueryTask({ url: popUrl });
@@ -142,10 +135,10 @@
         <h2>Bedrock Outcrops in Minnesota</h2>
         <p>Rock Type:
         <select class="esri-widget" id="rockTypeSelect">
-            <option value="Granite">Granite</option>
-            <option value="Quartzite">Quartzite</option>
-            <option value="Schist">Schist</option>
-            <option value="Basalt">Basalt</option>
+            <option value="&#39;Granite&#39;">Granite</option>
+            <option value="&#39;Quartzite&#39;">Quartzite</option>
+            <option value="&#39;Schist&#39;">Schist</option>
+            <option value="&#39;Basalt&#39;">Basalt</option>
             <option value="Unknown">Unkown</option>
         </select>
       </p>
